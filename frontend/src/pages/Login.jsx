@@ -6,7 +6,6 @@ function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  
   const API = import.meta.env.VITE_API_URL;
 
   const handleChange = (e) => {
@@ -16,7 +15,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${API}/login`, form);
+      const res = await axios.post(`${API}/api/login`, form);
       localStorage.setItem("token", res.data.token);
       alert("Login berhasil!");
       navigate("/nota");
