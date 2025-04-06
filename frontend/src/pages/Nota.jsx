@@ -11,6 +11,8 @@ function Nota() {
     harga_satuan: "",
   });
 
+  const API = import.meta.env.VITE_API_URL;
+
   const [notaList, setNotaList] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
@@ -19,22 +21,23 @@ function Nota() {
   const navigate = useNavigate();
 
   const fetchNota = async () => {
-    const res = await axios.get("http://localhost:5000/api/nota");
+    const res = await axios.get(`${API}/nota`);
     setNotaList(res.data);
   };
 
   useEffect(() => {
     fetchNota();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isEdit) {
-      await axios.put(`http://localhost:5000/api/nota/${editId}`, form);
+      await axios.put(`${API}/nota/${editId}`, form);
       setIsEdit(false);
       setEditId(null);
     } else {
-      await axios.post("http://localhost:5000/api/nota", form);
+      await axios.post(`${API}/nota`, form);
     }
 
     setForm({ nama_pelanggan: "", barang: "", jumlah: "", harga_satuan: "" });
@@ -56,7 +59,7 @@ function Nota() {
   // hendler delete
   const handleDelete = async (id) => {
     if (confirm("Yakin mau hapus nota ini?")) {
-      await axios.delete(`http://localhost:5000/api/nota/${id}`);
+      await axios.delete(`${API}/nota/${id}`);
       fetchNota();
     }
   };

@@ -9,6 +9,9 @@ function Register() {
     role: "",
     nama: "",
   });
+
+  const API = import.meta.env.VITE_API_URL;
+
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
@@ -19,7 +22,7 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/register", form);
+      await axios.post(`${API}/register`, form);
       setSuccess("Registrasi berhasil! Silakan login.");
       setForm({ email: "", password: "", role: "", nama: "" });
       alert("registrasi berhasil");
