@@ -7,9 +7,11 @@ app.use(cors());
 app.use(express.json());
 
 const loginRoutes = require("./routes/login");
+const registerRoutes = require("./routes/register");
 const crudRoutes = require("./routes/crud");
 
 app.use("/api", loginRoutes);
+app.use("/api", registerRoutes);
 app.use("/api", crudRoutes);
 
 app.get("/", (req, res) => {

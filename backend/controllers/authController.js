@@ -31,18 +31,3 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: "Terjadi kesalahan server" });
   }
 };
-
-exports.register = async (req, res) => {
-  const { email, password, role, nama } = req.body;
-
-  try {
-    const hashed = await bcrypt.hash(password, 10);
-    await pool.query(
-      "INSERT INTO admin (email, password, role, nama) VALUES ($1, $2, $3, $4)",
-      [email, hashed, role, nama]
-    );
-    res.status(201).json({ message: "Registrasi berhasil" });
-  } catch (err) {
-    res.status(500).json({ message: "Gagal registrasi", error: err.message });
-  }
-};
