@@ -17,11 +17,15 @@ exports.register = async (req, res) => {
     // Hash password dan simpan
     const hashed = await bcrypt.hash(password, 10);
     await pool.query(
-      "INSERT INTO admin (email, password, role, nama) VALUES ($1, $2, $3, $4)",
+      "INSERT INTO admin (email, password, role, nama) VALUES ($1, $2, $3, $4) RETURNING *",
       [email, hashed, role, nama]
     );
 
-    res.status(201).json({ message: "Registrasi berhasil" });
+    console.log("User created:", result.rows[0]);
+
+    res
+      .status(201)
+      .json({ message: "Registrasi berhasil", result: result.rows[0] });
   } catch (err) {
     console.error("Register Error:", err);
     res.status(500).json({ message: "Gagal registrasi", error: err.message });
