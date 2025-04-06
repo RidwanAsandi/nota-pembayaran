@@ -22,7 +22,7 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${API}/register`, form);
+      await axios.post(`${API}/api/register`, form);
       setSuccess("Registrasi berhasil! Silakan login.");
       setForm({ email: "", password: "", role: "", nama: "" });
       alert("registrasi berhasil");

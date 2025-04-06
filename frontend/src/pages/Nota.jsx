@@ -21,23 +21,23 @@ function Nota() {
   const navigate = useNavigate();
 
   const fetchNota = async () => {
-    const res = await axios.get(`${API}/nota`);
+    const res = await axios.get(`${API}/api/nota`);
     setNotaList(res.data);
   };
 
   useEffect(() => {
     fetchNota();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isEdit) {
-      await axios.put(`${API}/nota/${editId}`, form);
+      await axios.put(`${API}/api/nota/${editId}`, form);
       setIsEdit(false);
       setEditId(null);
     } else {
-      await axios.post(`${API}/nota`, form);
+      await axios.post(`${API}/api/nota`, form);
     }
 
     setForm({ nama_pelanggan: "", barang: "", jumlah: "", harga_satuan: "" });
@@ -59,7 +59,7 @@ function Nota() {
   // hendler delete
   const handleDelete = async (id) => {
     if (confirm("Yakin mau hapus nota ini?")) {
-      await axios.delete(`${API}/nota/${id}`);
+      await axios.delete(`${API}/api/nota/${id}`);
       fetchNota();
     }
   };
