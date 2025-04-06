@@ -19,7 +19,7 @@ exports.register = async (req, res) => {
     // Hash password dan simpan
     const hashed = await bcrypt.hash(password, 10);
     console.log("Hashed password:", hashedPassword);
-    
+
     await pool.query(
       "INSERT INTO admin (email, password, role, nama) VALUES ($1, $2, $3, $4) RETURNING *",
       [email, hashed, role, nama]
